@@ -13,7 +13,7 @@ class Products extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Image.asset(
-                      'assets/car.jpg',
+                      'assets/food.jpg',
                     ),
                     Text(element)
                   ],
