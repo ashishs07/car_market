@@ -10,6 +10,7 @@ class Products extends StatelessWidget {
     return Column(
       children: products
           .map((element) => Card(
+            color: Colors.grey,
                 child: Column(
                   children: <Widget>[
                     Image.asset(
