@@ -4,15 +4,15 @@ class ProductControl extends StatelessWidget {
   final Function addProduct;
 
   ProductControl(this.addProduct);
-  
+
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
       color: Theme.of(context).accentColor,
       onPressed: () {
-        addProduct('Sweets');
+        addProduct('Supercharger Tester');
       },
-      child: Text('Add Product'),
+      child: Text('Add Test'),
     );
   }
 }
