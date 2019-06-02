@@ -28,7 +28,7 @@ class Products extends StatelessWidget {
           )
         : Container(
             child: Center(
-              child: Text('No Products added.'),
+              child: Text('No Vehicles added.'),
             ));
   }
 }
