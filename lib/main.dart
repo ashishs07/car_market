@@ -18,14 +18,14 @@ class MyApp extends StatelessWidget {
       // debugShowMaterialGrid: true,
       theme: ThemeData(
         brightness: Brightness.light,
-        primarySwatch: Colors.red,
-        accentColor: Colors.lightBlueAccent[100],
+        // primarySwatch: Colors.red,
+        accentColor: Colors.blueAccent[100],
       ),
       home: Scaffold(
         appBar: AppBar(
           title: Text('Car Listing'),
         ),
-        body: ProductManager(startingProduct: 'Engine Tester'),
+        body: ProductManager(),
       ),
     );
     return materialApp;
