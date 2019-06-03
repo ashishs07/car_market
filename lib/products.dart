@@ -1,3 +1,4 @@
+import 'package:course_project/pages/product.dart';
 import 'package:flutter/material.dart';
 
 class Products extends StatelessWidget {
@@ -10,25 +11,42 @@ class Products extends StatelessWidget {
       color: Colors.grey,
       child: Column(
         children: <Widget>[
-          Image.asset(
-            'assets/car.jpg',
-          ),
-          Text(products[index])
+          Image.asset('assets/car.jpg'),
+          Text(products[index]),
+          ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FlatButton(
+                child: Text('Details'),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => ProductPage()));
+                },
+              )
+            ],
+          )
         ],
       ),
     );
   }
 
+  Widget _buildProductList() {
+    Widget productCard;
+    if (products.length > 0) {
+      productCard = ListView.builder(
+        itemBuilder: _buildProductItem,
+        itemCount: products.length,
+      );
+    } else {
+      productCard = Center(child: Text('No Vehicles added.'));
+    }
+    return productCard;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return products.length > 0
-        ? ListView.builder(
-            itemBuilder: _buildProductItem,
-            itemCount: products.length,
-          )
-        : Container(
-            child: Center(
-              child: Text('No Vehicles added.'),
-            ));
+    return _buildProductList();
   }
 }
