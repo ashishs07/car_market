@@ -1,28 +1,36 @@
-import 'package:course_project/pages/product.dart';
 import 'package:flutter/material.dart';
 
-class Products extends StatelessWidget {
-  final List<String> products;
+import 'package:course_project/pages/product.dart';
 
-  Products(this.products);
+class Products extends StatelessWidget {
+  final List<Map<String, String>> products;
+  final Function deleteProduct;
+
+  Products(this.products,{this.deleteProduct});
 
   Widget _buildProductItem(BuildContext context, int index) {
     return Card(
       color: Colors.grey,
       child: Column(
         children: <Widget>[
-          Image.asset('assets/car.jpg'),
-          Text(products[index]),
+          Image.asset(products[index]['image1']),
+          Text(products[index]['title']),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
               FlatButton(
                 child: Text('Details'),
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.push<bool>(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => ProductPage()));
+                          builder: (BuildContext context) => ProductPage(
+                              products[index]['title'],
+                              products[index]['image2']))).then((bool value) {
+                                if(value){
+                                  deleteProduct(index);
+                                }
+                              });
                 },
               )
             ],
