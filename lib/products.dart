@@ -6,11 +6,11 @@ class Products extends StatelessWidget {
   final List<Map<String, String>> products;
   final Function deleteProduct;
 
-  Products(this.products,{this.deleteProduct});
+  Products(this.products, {this.deleteProduct});
 
   Widget _buildProductItem(BuildContext context, int index) {
     return Card(
-      color: Colors.grey,
+      // color: Colors.grey,
       child: Column(
         children: <Widget>[
           Image.asset(products[index]['image1']),
@@ -20,6 +20,7 @@ class Products extends StatelessWidget {
             children: <Widget>[
               FlatButton(
                 child: Text('Details'),
+                //child: Container(child: Image.asset(products[index]['image1']),height: 140.0,),
                 onPressed: () {
                   Navigator.push<bool>(
                       context,
@@ -27,10 +28,16 @@ class Products extends StatelessWidget {
                           builder: (BuildContext context) => ProductPage(
                               products[index]['title'],
                               products[index]['image2']))).then((bool value) {
-                                if(value){
-                                  deleteProduct(index);
-                                }
-                              });
+                    if (value) {
+                      deleteProduct(index);
+                    }
+                  });
+                },
+              ),
+              FlatButton(
+                child: Text('Delete'),
+                onPressed: () {
+                  deleteProduct(index);
                 },
               )
             ],

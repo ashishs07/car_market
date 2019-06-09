@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
-import './pages/home.dart';
+import './pages/auth.dart';
 
 void main() {
   // debugPaintBaselinesEnabled = true;
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         // primarySwatch: Colors.red,
         accentColor: Colors.blueAccent[100],
       ),
-      home: HomePage(),
+      home: AuthPage(),
     );
     return materialApp;
   }
