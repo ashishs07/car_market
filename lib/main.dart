@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
 import './pages/auth.dart';
+import './pages/home.dart';
 
 void main() {
   // debugPaintBaselinesEnabled = true;
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.blueAccent[100],
       ),
       home: AuthPage(),
+      routes: {'/admin': (BuildContext context) => HomePage()},
     );
     return materialApp;
   }
