@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:course_project/pages/home.dart';
 import './product_create.dart';
 import './product_list.dart';
 
@@ -20,7 +19,7 @@ class ManagerAdmin extends StatelessWidget {
               ListTile(
                 title: Text('Go to Main Page'),
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, '/admin');
+                  Navigator.pushReplacementNamed(context, '/');
                 },
               )
             ],
