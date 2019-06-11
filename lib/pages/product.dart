@@ -10,9 +10,9 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope( 
+    return WillPopScope(
       onWillPop: () {
-        Navigator.pop(context,false);
+        Navigator.pop(context, false);
         return Future.value(false);
       },
       child: Scaffold(
@@ -30,9 +30,30 @@ class ProductPage extends StatelessWidget {
               alignment: MainAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                  child: Text('Delete this Product'),
-                  onPressed: () => Navigator.pop(context, true),
-                ),
+                    child: Text('Delete this Product'),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Are you sure?'),
+                              content: Text('This cannot be undone'),
+                              actions: <Widget>[
+                                FlatButton(
+                                    child: Text('Go Back'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    }),
+                                FlatButton(
+                                    child: Text('Delete'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context, true);
+                                    }),
+                              ],
+                            );
+                          });
+                    }),
                 RaisedButton(
                   child: Text('Go Back'),
                   onPressed: () {
