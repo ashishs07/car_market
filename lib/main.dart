@@ -1,10 +1,11 @@
+import 'package:course_project/pages/products.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
 //import './pages/auth.dart';
 import './pages/products_admin.dart';
-import './pages/products.dart';
 import './pages/product.dart';
+import './products.dart';
 
 void main() {
   // debugPaintBaselinesEnabled = true;
@@ -22,17 +23,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final List<Map<String, String>> products = [];
+  final List<Map<String, dynamic>> _products = [];
 
-  void addProduct(Map<String, String> product) {
+  void _addProduct(Map<String, dynamic> product) {
     setState(() {
-      products.add(product);
+      _products.add(product);
     });
   }
 
-  void deleteProduct(int index) {
+  void _deleteProduct(int index) {
     setState(() {
-      products.removeAt(index);
+      _products.removeAt(index);
     });
   }
 
@@ -47,9 +48,9 @@ class _MyAppState extends State<MyApp> {
       ),
       // home: AuthPage(),
       routes: {
-        '/': (BuildContext context) =>
-            ProductsPage(products, addProduct, deleteProduct),
-        '/admin': (BuildContext context) => ManagerAdmin(),
+        '/': (BuildContext context) => ProductsPage(_products),
+        '/admin': (BuildContext context) =>
+            ManagerAdmin(_addProduct, _deleteProduct),
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');
@@ -61,14 +62,13 @@ class _MyAppState extends State<MyApp> {
           final int index = int.parse(pathElements[2]);
           return MaterialPageRoute<bool>(
               builder: (BuildContext context) => ProductPage(
-                  products[index]['title'], products[index]['image2']));
+                  _products[index]['title'], _products[index]['image']));
         }
         return null;
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-          builder: (BuildContext context) =>
-              ProductsPage(products, addProduct, deleteProduct),
+          builder: (BuildContext context) => Products(_products),
         );
       },
     );

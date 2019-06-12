@@ -8,6 +8,30 @@ class ProductPage extends StatelessWidget {
 
   ProductPage(this.title, this.imageUrl);
 
+  _showDialogBox(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Are you sure?'),
+            content: Text('This cannot be undone'),
+            actions: <Widget>[
+              FlatButton(
+                  child: Text('Go Back'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+              FlatButton(
+                  child: Text('Delete'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context, true);
+                  }),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -23,37 +47,11 @@ class ProductPage extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           //  crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            // Image.network('https://i.imgur.com/ya2MzNP.jpg'),
             Image.asset(imageUrl),
             Text(title),
             ButtonBar(
               alignment: MainAxisAlignment.center,
               children: <Widget>[
-                RaisedButton(
-                    child: Text('Delete this Product'),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text('Are you sure?'),
-                              content: Text('This cannot be undone'),
-                              actions: <Widget>[
-                                FlatButton(
-                                    child: Text('Go Back'),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    }),
-                                FlatButton(
-                                    child: Text('Delete'),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context, true);
-                                    }),
-                              ],
-                            );
-                          });
-                    }),
                 RaisedButton(
                   child: Text('Go Back'),
                   onPressed: () {
