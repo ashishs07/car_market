@@ -1,8 +1,9 @@
+import 'package:course_project/pages/auth.dart';
 import 'package:course_project/pages/products.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
-//import './pages/auth.dart';
+import './pages/auth.dart';
 import './pages/products_admin.dart';
 import './pages/product.dart';
 import './products.dart';
@@ -48,12 +49,13 @@ class _MyAppState extends State<MyApp> {
       ),
       // home: AuthPage(),
       routes: {
-        '/': (BuildContext context) => ProductsPage(_products),
+        '/': (BuildContext context) => AuthPage(),
+        '/home': (BuildContext context) => ProductsPage(_products),
         '/admin': (BuildContext context) =>
             ManagerAdmin(_addProduct, _deleteProduct),
       },
       onGenerateRoute: (RouteSettings settings) {
-        final List<String> pathElements = settings.name.split('/');
+        final List<String> pathElements = settings.name.split('/home');
 
         if (pathElements[0] != '') {
           return null;

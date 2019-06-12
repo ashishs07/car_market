@@ -24,7 +24,7 @@ class ManagerAdmin extends StatelessWidget {
               ListTile(
                 title: Text('Go to Main Page'),
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, '/');
+                  Navigator.pushReplacementNamed(context, '/home');
                 },
               )
             ],
@@ -48,7 +48,7 @@ class ManagerAdmin extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             ProductCreatePage(addProduct),
-            ProductListPage(),
+            ProductListPage(deleteProduct),
           ],
         ),
       ),

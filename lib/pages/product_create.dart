@@ -48,7 +48,12 @@ class _ProductCreatePage extends State<ProductCreatePage> {
               });
             },
           ),
+          SizedBox(
+            height: 10.0,
+          ),
           RaisedButton(
+            color: Theme.of(context).accentColor,
+            textColor: Colors.white,
             child: Text('Save'),
             onPressed: () {
               final Map<String, dynamic> product = {
@@ -58,6 +63,7 @@ class _ProductCreatePage extends State<ProductCreatePage> {
                 'image': 'assets/food.jpg',
               };
               widget.addProduct(product);
+              Navigator.pushReplacementNamed(context, '/home');
             },
           )
         ],
