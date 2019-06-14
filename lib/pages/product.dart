@@ -9,7 +9,7 @@ class ProductPage extends StatelessWidget {
 
   ProductPage(this.title, this.imageUrl, this.description);
 
-  _showDialogBox(BuildContext context) {
+  /* _showDialogBox(BuildContext context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -32,7 +32,7 @@ class ProductPage extends StatelessWidget {
           );
         });
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
