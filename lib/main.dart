@@ -1,11 +1,10 @@
-import 'package:course_project/pages/auth.dart';
-import 'package:course_project/pages/products.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
 import './pages/auth.dart';
 import './pages/products_admin.dart';
 import './pages/product.dart';
+import './pages/products.dart';
 import './products.dart';
 
 void main() {
