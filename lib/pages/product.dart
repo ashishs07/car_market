@@ -1,12 +1,14 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatelessWidget {
   final String title;
   final String imageUrl;
+  final String description;
 
-  ProductPage(this.title, this.imageUrl);
+  ProductPage(this.title, this.imageUrl, this.description);
 
   _showDialogBox(BuildContext context) {
     showDialog(
@@ -48,7 +50,15 @@ class ProductPage extends StatelessWidget {
           //  crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Image.asset(imageUrl),
-            Text(title),
+            Text(title,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )),
+            Text(
+              description,
+              textAlign: TextAlign.left,
+            ),
             ButtonBar(
               alignment: MainAxisAlignment.center,
               children: <Widget>[

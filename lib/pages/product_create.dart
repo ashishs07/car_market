@@ -53,7 +53,6 @@ class _ProductCreatePage extends State<ProductCreatePage> {
           ),
           RaisedButton(
             color: Theme.of(context).accentColor,
-            textColor: Colors.white,
             child: Text('Save'),
             onPressed: () {
               final Map<String, dynamic> product = {

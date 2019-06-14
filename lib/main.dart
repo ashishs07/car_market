@@ -43,9 +43,9 @@ class _MyAppState extends State<MyApp> {
     var materialApp = MaterialApp(
       // debugShowMaterialGrid: true,
       theme: ThemeData(
-        brightness: Brightness.light,
-        // primarySwatch: Colors.red,
-        accentColor: Colors.blueAccent[100],
+        //brightness: Brightness.light,
+        primarySwatch: Colors.teal,
+        accentColor: Colors.tealAccent,
       ),
       // home: AuthPage(),
       routes: {
@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
             ManagerAdmin(_addProduct, _deleteProduct),
       },
       onGenerateRoute: (RouteSettings settings) {
-        final List<String> pathElements = settings.name.split('/home');
+        final List<String> pathElements = settings.name.split('/');
 
         if (pathElements[0] != '') {
           return null;
@@ -64,7 +64,10 @@ class _MyAppState extends State<MyApp> {
           final int index = int.parse(pathElements[2]);
           return MaterialPageRoute<bool>(
               builder: (BuildContext context) => ProductPage(
-                  _products[index]['title'], _products[index]['image']));
+                    _products[index]['title'],
+                    _products[index]['image'],
+                    _products[index]['description'],
+                  ));
         }
         return null;
       },
