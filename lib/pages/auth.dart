@@ -54,7 +54,7 @@ class _AuthPage extends State<AuthPage> {
             ),
             RaisedButton(
               color: Theme.of(context).accentColor,
-              //textColor: Colors.white,
+              textColor: Colors.white,
               child: Text('Login'),
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/home');
