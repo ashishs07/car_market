@@ -40,11 +40,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var materialApp = MaterialApp(
+      debugShowCheckedModeBanner: false,
       // debugShowMaterialGrid: true,
       theme: ThemeData(
         //brightness: Brightness.light,
         primarySwatch: Colors.teal,
         accentColor: Colors.teal,
+        fontFamily: 'Karla',
       ),
       //home: AuthPage(),
       routes: {
