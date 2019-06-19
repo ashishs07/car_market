@@ -5,7 +5,7 @@ import './pages/auth.dart';
 import './pages/products_admin.dart';
 import './pages/product.dart';
 import './pages/products.dart';
-import './products.dart';
+import './widgets/products/products.dart';
 
 void main() {
   // debugPaintBaselinesEnabled = true;

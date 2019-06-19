@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../widgets/UI elements/product_title.dart';
+
 class ProductPage extends StatelessWidget {
   final String title;
   final String imageUrl;
@@ -49,11 +51,7 @@ class ProductPage extends StatelessWidget {
           //  crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Image.asset(imageUrl),
-            Text(title,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                )),
+            ProductTitle(title),
             Text(
               description,
               textAlign: TextAlign.left,
