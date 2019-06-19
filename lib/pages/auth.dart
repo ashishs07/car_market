@@ -19,7 +19,15 @@ class _AuthPage extends State<AuthPage> {
         title: Text('Car Login'),
       ),
       body: Container(
-        margin: EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/food.jpg'),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.5), BlendMode.dstATop),
+          ),
+        ),
+        padding: EdgeInsets.all(10.0),
         child: ListView(
           children: <Widget>[
             TextField(

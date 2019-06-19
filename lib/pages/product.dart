@@ -51,18 +51,23 @@ class ProductPage extends StatelessWidget {
             Image.asset(imageUrl),
             Text(title,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
             Text(
               description,
               textAlign: TextAlign.left,
+              style: TextStyle(fontStyle: FontStyle.italic),
             ),
             ButtonBar(
               alignment: MainAxisAlignment.center,
               children: <Widget>[
-                RaisedButton(
-                  child: Text('Go Back'),
+                IconButton(
+                  color: Theme.of(context).primaryColor,
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    size: 30.0,
+                  ),
                   onPressed: () {
                     Navigator.pop(context, false);
                   },
