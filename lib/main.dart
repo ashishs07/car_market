@@ -41,14 +41,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     var materialApp = MaterialApp(
       debugShowCheckedModeBanner: false,
-      // debugShowMaterialGrid: true,
       theme: ThemeData(
-        //brightness: Brightness.light,
         primarySwatch: Colors.teal,
         accentColor: Colors.teal,
         fontFamily: 'Karla',
       ),
-      //home: AuthPage(),
       routes: {
         '/': (BuildContext context) => AuthPage(),
         '/home': (BuildContext context) => ProductsPage(_products),
