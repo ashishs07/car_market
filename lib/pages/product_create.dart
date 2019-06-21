@@ -15,11 +15,20 @@ class _ProductCreatePage extends State<ProductCreatePage> {
   String titleValue;
   String descriptionValue;
   double priceValue;
+  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   Widget _buildTitletextField() {
-    return TextField(
+    return TextFormField(
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Title is Required';
+        }
+        if (value.length <= 5) {
+          return 'Title should be greater than 5 chars';
+        }
+      },
       decoration: InputDecoration(labelText: 'Product Title'),
-      onChanged: (String value) {
+      onSaved: (String value) {
         setState(() {
           titleValue = value;
         });
@@ -28,10 +37,18 @@ class _ProductCreatePage extends State<ProductCreatePage> {
   }
 
   Widget _buildDescriptiontextField() {
-    return TextField(
+    return TextFormField(
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Enter Description';
+        }
+        if (value.length <= 10) {
+          return 'Description should be greater than 5 chars';
+        }
+      },
       decoration: InputDecoration(labelText: 'Description'),
       maxLines: 5,
-      onChanged: (String value) {
+      onSaved: (String value) {
         setState(() {
           descriptionValue = value;
         });
@@ -40,10 +57,16 @@ class _ProductCreatePage extends State<ProductCreatePage> {
   }
 
   Widget _buildPricetextField() {
-    return TextField(
+    return TextFormField(
+      validator: (String value) {
+        if (value.isEmpty ||
+            RegExp(r'^(?:[1-9]\d*|0)?(?:[.,]\d+)?$').hasMatch(value)) {
+          return 'Enter Price';
+        }
+      },
       decoration: InputDecoration(labelText: 'Price'),
       keyboardType: TextInputType.number,
-      onChanged: (String value) {
+      onSaved: (String value) {
         setState(() {
           priceValue = double.parse(value);
         });
@@ -52,6 +75,10 @@ class _ProductCreatePage extends State<ProductCreatePage> {
   }
 
   void _submitForm() {
+    if (!_globalKey.currentState.validate()) {
+      return;
+    }
+    _globalKey.currentState.save();
     final Map<String, dynamic> product = {
       'title': titleValue,
       'description': descriptionValue,
@@ -66,20 +93,23 @@ class _ProductCreatePage extends State<ProductCreatePage> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(10.0),
-      child: ListView(
-        children: <Widget>[
-          _buildTitletextField(),
-          _buildDescriptiontextField(),
-          _buildPricetextField(),
-          SizedBox(
-            height: 10.0,
-          ),
-          RaisedButton(
-            color: Theme.of(context).accentColor,
-            child: Text('Save'),
-            onPressed: _submitForm,
-          )
-        ],
+      child: Form(
+        key: _globalKey,
+        child: ListView(
+          children: <Widget>[
+            _buildTitletextField(),
+            _buildDescriptiontextField(),
+            _buildPricetextField(),
+            SizedBox(
+              height: 10.0,
+            ),
+            RaisedButton(
+              color: Theme.of(context).accentColor,
+              child: Text('Save'),
+              onPressed: _submitForm,
+            )
+          ],
+        ),
       ),
     );
   }
