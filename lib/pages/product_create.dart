@@ -59,8 +59,7 @@ class _ProductCreatePage extends State<ProductCreatePage> {
   Widget _buildPricetextField() {
     return TextFormField(
       validator: (String value) {
-        if (value.isEmpty ||
-            RegExp(r'^(?:[1-9]\d*|0)?(?:[.,]\d+)?$').hasMatch(value)) {
+        if (value.isEmpty) {
           return 'Enter Price';
         }
       },
