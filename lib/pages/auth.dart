@@ -27,9 +27,7 @@ class _AuthPage extends State<AuthPage> {
       ),
       keyboardType: TextInputType.emailAddress,
       onSaved: (String value) {
-        setState(() {
-          emailValue = value;
-        });
+        emailValue = value;
       },
     );
   }
@@ -40,6 +38,9 @@ class _AuthPage extends State<AuthPage> {
         if (value.isEmpty) {
           return 'Password is required';
         }
+        if (value.length < 8) {
+          return 'Required 8+ characters';
+        }
       },
       decoration: InputDecoration(
         labelText: 'Password',
@@ -48,9 +49,7 @@ class _AuthPage extends State<AuthPage> {
       ),
       obscureText: true,
       onSaved: (String value) {
-        setState(() {
-          passwordValue = value;
-        });
+        passwordValue = value;
       },
     );
   }

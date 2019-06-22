@@ -38,12 +38,14 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.teal,
         accentColor: Colors.teal,
         fontFamily: 'Karla',
+        buttonTheme: ButtonThemeData(buttonColor: Colors.teal),
+        iconTheme: IconThemeData(color: Colors.teal),
       ),
       routes: {
         '/': (BuildContext context) => AuthPage(),
         '/home': (BuildContext context) => ProductsPage(_products),
         '/admin': (BuildContext context) =>
-            ManagerAdmin(_addProduct, _deleteProduct),
+            ManagerAdmin(_addProduct, _deleteProduct, _products),
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');

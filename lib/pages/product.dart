@@ -43,23 +43,19 @@ class ProductPage extends StatelessWidget {
         return Future.value(false);
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
+        appBar: AppBar(title: Text(title)),
         body: Column(
           children: <Widget>[
             Image.asset(imageUrl),
             ProductTitle(title),
             Text(
               description,
-              textAlign: TextAlign.left,
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
             ButtonBar(
               alignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
-                  color: Theme.of(context).primaryColor,
                   icon: Icon(
                     Icons.arrow_back_ios,
                     size: 30.0,
