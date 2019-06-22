@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-import './product_create.dart';
+import './product_edit.dart';
 import './product_list.dart';
 
 class ManagerAdmin extends StatelessWidget {
   final Function addProduct;
   final Function deleteProduct;
+  final Function updateProduct;
   final List<Map<String, dynamic>> products;
 
-  ManagerAdmin(this.addProduct, this.deleteProduct, this.products);
+  ManagerAdmin(
+      this.addProduct, this.updateProduct, this.deleteProduct, this.products);
 
   Widget _buildAdminDrawer(BuildContext context) {
     return Drawer(
@@ -56,8 +58,8 @@ class ManagerAdmin extends StatelessWidget {
         appBar: _buildMainAppBar(),
         body: TabBarView(
           children: <Widget>[
-            ProductCreatePage(addProduct),
-            ProductListPage(deleteProduct, products),
+            ProductEditPage(addProduct: addProduct),
+            ProductListPage(updateProduct, deleteProduct, products),
           ],
         ),
       ),

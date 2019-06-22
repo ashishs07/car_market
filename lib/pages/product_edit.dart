@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
-class ProductCreatePage extends StatefulWidget {
+class ProductEditPage extends StatefulWidget {
   final Function addProduct;
+  final Function updateProduct;
+  final Map<String, dynamic> product;
+  final int productIndex;
 
-  ProductCreatePage(this.addProduct);
+  ProductEditPage(
+      {this.addProduct, this.updateProduct, this.product, this.productIndex});
 
   @override
   State<StatefulWidget> createState() {
-    return _ProductCreatePage();
+    return _ProductEditPage();
   }
 }
 
-class _ProductCreatePage extends State<ProductCreatePage> {
+class _ProductEditPage extends State<ProductEditPage> {
   final Map<String, dynamic> _formData = {
     'title': null,
     'description': null,
@@ -30,6 +34,7 @@ class _ProductCreatePage extends State<ProductCreatePage> {
           return 'Title should be greater than 5 chars';
         }
       },
+      initialValue: widget.product == null ? '' : widget.product['title'],
       decoration: InputDecoration(labelText: 'Product Title'),
       onSaved: (String value) {
         _formData['title'] = value;
@@ -47,6 +52,7 @@ class _ProductCreatePage extends State<ProductCreatePage> {
           return 'Description should be greater than 5 chars';
         }
       },
+      initialValue: widget.product == null ? '' : widget.product['description'],
       decoration: InputDecoration(labelText: 'Description'),
       maxLines: 5,
       onSaved: (String value) {
@@ -62,6 +68,8 @@ class _ProductCreatePage extends State<ProductCreatePage> {
           return 'Enter Price';
         }
       },
+      initialValue:
+          widget.product == null ? '' : widget.product['price'].toString(),
       decoration: InputDecoration(labelText: 'Price'),
       keyboardType: TextInputType.number,
       onSaved: (String value) {
@@ -75,13 +83,15 @@ class _ProductCreatePage extends State<ProductCreatePage> {
       return;
     }
     _globalKey.currentState.save();
-    widget.addProduct(_formData);
+    widget.product == null
+        ? widget.addProduct(_formData)
+        : widget.updateProduct(widget.productIndex, _formData);
     Navigator.pushReplacementNamed(context, '/home');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final Widget _mainForm = Container(
       margin: EdgeInsets.all(10.0),
       child: Form(
         key: _globalKey,
@@ -102,5 +112,13 @@ class _ProductCreatePage extends State<ProductCreatePage> {
         ),
       ),
     );
+    return widget.product == null
+        ? _mainForm
+        : Scaffold(
+            appBar: AppBar(
+              title: Text('Edit Page'),
+            ),
+            body: _mainForm,
+          );
   }
 }
