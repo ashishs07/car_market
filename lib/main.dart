@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import './pages/auth.dart';
 import './pages/products_admin.dart';
 import './pages/product.dart';
 import './pages/products.dart';
 import './widgets/products/products.dart';
+//import './models/productmodel.dart';
+import './scoped-models/product_smodel.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,66 +19,43 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final List<Map<String, dynamic>> _products = [];
-
-  void _addProduct(Map<String, dynamic> product) {
-    setState(() {
-      _products.add(product);
-    });
-  }
-
-  void _updateProduct(int index, Map<String, dynamic> product) {
-    setState(() {
-      _products[index] = product;
-    });
-  }
-
-  void _deleteProduct(int index) {
-    setState(() {
-      _products.removeAt(index);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    var materialApp = MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-        accentColor: Colors.teal,
-        fontFamily: 'Karla',
-        buttonTheme: ButtonThemeData(buttonColor: Colors.teal),
-        iconTheme: IconThemeData(color: Colors.teal),
-      ),
-      routes: {
-        '/': (BuildContext context) => AuthPage(),
-        '/home': (BuildContext context) => ProductsPage(_products),
-        '/admin': (BuildContext context) => ManagerAdmin(
-            _addProduct, _updateProduct, _deleteProduct, _products),
-      },
-      onGenerateRoute: (RouteSettings settings) {
-        final List<String> pathElements = settings.name.split('/');
+    return ScopedModel<ProductSModel>(
+      model: ProductSModel(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.teal,
+          accentColor: Colors.teal,
+          fontFamily: 'Karla',
+          buttonTheme: ButtonThemeData(buttonColor: Colors.teal),
+          iconTheme: IconThemeData(color: Colors.teal),
+        ),
+        routes: {
+          '/': (BuildContext context) => AuthPage(),
+          '/home': (BuildContext context) => ProductsPage(),
+          '/admin': (BuildContext context) => ManagerAdmin(),
+        },
+        onGenerateRoute: (RouteSettings settings) {
+          final List<String> pathElements = settings.name.split('/');
 
-        if (pathElements[0] != '') {
+          if (pathElements[0] != '') {
+            return null;
+          }
+          if (pathElements[1] == 'product') {
+            final int index = int.parse(pathElements[2]);
+            return MaterialPageRoute<bool>(
+                builder: (BuildContext context) => ProductPage(index));
+          }
           return null;
-        }
-        if (pathElements[1] == 'product') {
-          final int index = int.parse(pathElements[2]);
-          return MaterialPageRoute<bool>(
-              builder: (BuildContext context) => ProductPage(
-                    _products[index]['title'],
-                    _products[index]['image'],
-                    _products[index]['description'],
-                  ));
-        }
-        return null;
-      },
-      onUnknownRoute: (RouteSettings settings) {
-        return MaterialPageRoute(
-          builder: (BuildContext context) => Products(_products),
-        );
-      },
+        },
+        onUnknownRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+            builder: (BuildContext context) => Products(),
+          );
+        },
+      ),
     );
-    return materialApp;
   }
 }

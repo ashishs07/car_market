@@ -4,14 +4,6 @@ import './product_edit.dart';
 import './product_list.dart';
 
 class ManagerAdmin extends StatelessWidget {
-  final Function addProduct;
-  final Function deleteProduct;
-  final Function updateProduct;
-  final List<Map<String, dynamic>> products;
-
-  ManagerAdmin(
-      this.addProduct, this.updateProduct, this.deleteProduct, this.products);
-
   Widget _buildAdminDrawer(BuildContext context) {
     return Drawer(
       child: Column(
@@ -21,6 +13,7 @@ class ManagerAdmin extends StatelessWidget {
             title: Text('Admin Controls'),
           ),
           ListTile(
+            leading: Icon(Icons.home),
             title: Text('Go to Main Page'),
             onTap: () {
               Navigator.pushReplacementNamed(context, '/home');
@@ -58,8 +51,8 @@ class ManagerAdmin extends StatelessWidget {
         appBar: _buildMainAppBar(),
         body: TabBarView(
           children: <Widget>[
-            ProductEditPage(addProduct: addProduct),
-            ProductListPage(updateProduct, deleteProduct, products),
+            ProductEditPage(),
+            ProductListPage(),
           ],
         ),
       ),

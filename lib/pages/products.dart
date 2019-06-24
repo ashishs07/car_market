@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import '../widgets/products/products.dart';
 
 class ProductsPage extends StatelessWidget {
-  final List<Map<String, dynamic>> products;
-
-  ProductsPage(this.products);
-
   Widget _buildMainDrawer(BuildContext context) {
     return Drawer(
       child: Column(
@@ -16,6 +12,7 @@ class ProductsPage extends StatelessWidget {
             title: Text('Choose'),
           ),
           ListTile(
+            leading: Icon(Icons.shop),
             title: Text('Manage Products'),
             onTap: () {
               Navigator.pushReplacementNamed(context, '/admin');
@@ -43,7 +40,7 @@ class ProductsPage extends StatelessWidget {
     return Scaffold(
       drawer: _buildMainDrawer(context),
       appBar: _buildMainAppBar(),
-      body: Products(products),
+      body: Products(),
     );
   }
 }

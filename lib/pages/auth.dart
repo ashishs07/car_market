@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class AuthPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _AuthPage();
+    return _AuthPageState();
   }
 }
 
-class _AuthPage extends State<AuthPage> {
+class _AuthPageState extends State<AuthPage> {
   String emailValue;
   String passwordValue;
   bool _acceptTerms = false;
