@@ -98,6 +98,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
         ),
       );
     }
+
     Navigator.pushReplacementNamed(context, '/home');
   }
 
@@ -114,30 +115,20 @@ class _ProductEditPageState extends State<ProductEditPage> {
   }
 
   Widget _buildPageContent(BuildContext context, ProductModel product) {
-    final double deviceWidth = MediaQuery.of(context).size.width;
-    final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
-    final double targetPadding = deviceWidth - targetWidth;
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode());
-      },
-      child: Container(
-        width: targetPadding,
-        margin: EdgeInsets.all(10.0),
-        child: Form(
-          key: _globalKey,
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
-            children: <Widget>[
-              _buildTitletextField(product),
-              _buildDescriptiontextField(product),
-              _buildPricetextField(product),
-              SizedBox(
-                height: 10.0,
-              ),
-              _buildSubmitButton(),
-            ],
-          ),
+    return Container(
+      margin: EdgeInsets.all(10.0),
+      child: Form(
+        key: _globalKey,
+        child: ListView(
+          children: <Widget>[
+            _buildTitletextField(product),
+            _buildDescriptiontextField(product),
+            _buildPricetextField(product),
+            SizedBox(
+              height: 10.0,
+            ),
+            _buildSubmitButton(),
+          ],
         ),
       ),
     );
