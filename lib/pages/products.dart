@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import '../widgets/products/products.dart';
+import '../scoped-models/product_smodel.dart';
 
 class ProductsPage extends StatelessWidget {
   Widget _buildMainDrawer(BuildContext context) {
@@ -27,10 +29,18 @@ class ProductsPage extends StatelessWidget {
     return AppBar(
       title: Text('Car Listing'),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.favorite_border),
-          onPressed: () {},
-        )
+        ScopedModelDescendant<ProductSModel>(
+          builder: (BuildContext context, Widget child, ProductSModel model) {
+            return IconButton(
+              icon: Icon(model.displayFavouritesOnly
+                  ? Icons.favorite
+                  : Icons.favorite_border),
+              onPressed: () {
+                model.toggledisplaymode();
+              },
+            );
+          },
+        ),
       ],
     );
   }
