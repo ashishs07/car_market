@@ -7,7 +7,7 @@ import './pages/product.dart';
 import './pages/products.dart';
 import './widgets/products/products.dart';
 //import './models/productmodel.dart';
-import './scoped-models/product_smodel.dart';
+import './scoped-models/main_smodel.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,13 +17,13 @@ class MyApp extends StatefulWidget {
     return _MyAppState();
   }
 }
-//This is to revalidate 
+//This is to revalidate
 
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<ProductSModel>(
-      model: ProductSModel(),
+    return ScopedModel<MainModel>(
+      model: MainModel(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

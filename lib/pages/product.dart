@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../widgets/UI elements/product_title.dart';
-import '../widgets/products/product_location.dart';
-import '../scoped-models/product_smodel.dart';
+import '../widgets/UI elements/product_location.dart';
+import '../scoped-models/main_smodel.dart';
 import '../models/productmodel.dart';
 
 class ProductPage extends StatelessWidget {
@@ -52,7 +52,7 @@ class ProductPage extends StatelessWidget {
         return Future.value(false);
       },
       child: ScopedModelDescendant(
-          builder: (BuildContext context, Widget child, ProductSModel model) {
+          builder: (BuildContext context, Widget child, MainModel model) {
         return _buildScaffold(context, model.products[index]);
       }),
     );

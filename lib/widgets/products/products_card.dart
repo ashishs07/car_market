@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import './price_tag.dart';
-import './product_location.dart';
+import '../UI elements/product_location.dart';
 import '../UI elements/product_title.dart';
 import '../../models/productmodel.dart';
-import '../../scoped-models/product_smodel.dart';
+import '../../scoped-models/main_smodel.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;
@@ -47,9 +47,8 @@ class ProductCard extends StatelessWidget {
                       context, '/product/' + productIndex.toString());
                 },
               ),
-              ScopedModelDescendant<ProductSModel>(
-                builder:
-                    (BuildContext context, Widget child, ProductSModel model) {
+              ScopedModelDescendant<MainModel>(
+                builder: (BuildContext context, Widget child, MainModel model) {
                   return IconButton(
                     icon: Icon(model.products[productIndex].isFavourite
                         ? Icons.favorite

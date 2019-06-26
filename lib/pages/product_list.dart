@@ -4,11 +4,10 @@ import 'package:scoped_model/scoped_model.dart';
 import './product_edit.dart';
 import '../widgets/UI elements/colordividerline.dart';
 //import '../models/productmodel.dart';
-import '../scoped-models/product_smodel.dart';
+import '../scoped-models/main_smodel.dart';
 
 class ProductListPage extends StatelessWidget {
-  Widget _buildEditButton(
-      BuildContext context, int index, ProductSModel model) {
+  Widget _buildEditButton(BuildContext context, int index, MainModel model) {
     return IconButton(
       icon: Icon(Icons.edit),
       onPressed: () {
@@ -26,8 +25,8 @@ class ProductListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<ProductSModel>(
-        builder: (BuildContext context, Widget child, ProductSModel model) {
+    return ScopedModelDescendant<MainModel>(
+        builder: (BuildContext context, Widget child, MainModel model) {
       return ListView.builder(
         itemBuilder: (BuildContext context, int index) => Dismissible(
               key: Key(model.products[index].title),
