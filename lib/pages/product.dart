@@ -9,9 +9,9 @@ import '../scoped-models/main_smodel.dart';
 import '../models/productmodel.dart';
 
 class ProductPage extends StatelessWidget {
-  final int index;
+  final int productIndex;
 
-  ProductPage(this.index);
+  ProductPage(this.productIndex);
 
   Widget _buildScaffold(BuildContext context, ProductModel products) {
     return Scaffold(
@@ -53,7 +53,7 @@ class ProductPage extends StatelessWidget {
       },
       child: ScopedModelDescendant(
           builder: (BuildContext context, Widget child, MainModel model) {
-        return _buildScaffold(context, model.products[index]);
+        return _buildScaffold(context, model.allProducts[productIndex]);
       }),
     );
   }

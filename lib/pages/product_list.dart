@@ -3,7 +3,6 @@ import 'package:scoped_model/scoped_model.dart';
 
 import './product_edit.dart';
 import '../widgets/UI elements/colordividerline.dart';
-//import '../models/productmodel.dart';
 import '../scoped-models/main_smodel.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -18,7 +17,7 @@ class ProductListPage extends StatelessWidget {
               return ProductEditPage();
             },
           ),
-        );
+        ).then((_) => model.selectProduct(null));
       },
     );
   }
@@ -29,7 +28,7 @@ class ProductListPage extends StatelessWidget {
         builder: (BuildContext context, Widget child, MainModel model) {
       return ListView.builder(
         itemBuilder: (BuildContext context, int index) => Dismissible(
-              key: Key(model.products[index].title),
+              key: Key(model.allProducts[index].title),
               onDismissed: (DismissDirection direction) {
                 if (direction == DismissDirection.endToStart) {
                   model.selectProduct(index);
@@ -44,18 +43,19 @@ class ProductListPage extends StatelessWidget {
                   ListTile(
                     contentPadding: EdgeInsets.all(10),
                     leading: CircleAvatar(
-                      backgroundImage: AssetImage(model.products[index].image),
+                      backgroundImage:
+                          AssetImage(model.allProducts[index].image),
                     ),
                     subtitle:
-                        Text('\$${model.products[index].price.toString()}'),
-                    title: Text(model.products[index].title),
+                        Text('\$${model.allProducts[index].price.toString()}'),
+                    title: Text(model.allProducts[index].title),
                     trailing: _buildEditButton(context, index, model),
                   ),
                   ColorDividerLine(),
                 ],
               ),
             ),
-        itemCount: model.products.length,
+        itemCount: model.allProducts.length,
       );
     });
   }

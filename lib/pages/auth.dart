@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+
+import '../scoped-models/main_smodel.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -8,32 +11,51 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  String emailValue;
-  String passwordValue;
-  bool _acceptTerms = false;
-  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+  final Map<String, dynamic> _formData = {
+    'email': null,
+    'password': null,
+    'acceptTerms': false,
+  };
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  DecorationImage _buildBackgroundImage() {
+    return DecorationImage(
+      fit: BoxFit.cover,
+      colorFilter:
+          ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
+      image: AssetImage('assets/food.jpg'),
+    );
+  }
 
   Widget _buildEmailTextField() {
     return TextFormField(
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Email is required';
-        }
-      },
       decoration: InputDecoration(
         labelText: 'Email ID',
         filled: true,
         fillColor: Colors.white,
       ),
       keyboardType: TextInputType.emailAddress,
+      validator: (String value) {
+        if (value.isEmpty ||
+            !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                .hasMatch(value)) {
+          return 'Email is required';
+        }
+      },
       onSaved: (String value) {
-        emailValue = value;
+        _formData['email'] = value;
       },
     );
   }
 
   Widget _buildPasswordTextField() {
     return TextFormField(
+      decoration: InputDecoration(
+        labelText: 'Password',
+        filled: true,
+        fillColor: Colors.white,
+      ),
+      obscureText: true,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Password is required';
@@ -42,14 +64,8 @@ class _AuthPageState extends State<AuthPage> {
           return 'Required 8+ characters';
         }
       },
-      decoration: InputDecoration(
-        labelText: 'Password',
-        filled: true,
-        fillColor: Colors.white,
-      ),
-      obscureText: true,
       onSaved: (String value) {
-        passwordValue = value;
+        _formData['password'] = value;
       },
     );
   }
@@ -57,20 +73,21 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildAcceptSwitchTile() {
     return SwitchListTile(
       title: Text('Accept Terms'),
-      value: _acceptTerms,
+      value: _formData['acceptTerms'],
       onChanged: (bool value) {
         setState(() {
-          _acceptTerms = value;
+          _formData['acceptTerms'] = value;
         });
       },
     );
   }
 
-  void _submitForm() {
-    if (!_globalKey.currentState.validate()) {
+  void _submitForm(Function login) {
+    if (!_formKey.currentState.validate() || !_formData['acceptTerms']) {
       return;
     }
-    _globalKey.currentState.save();
+    _formKey.currentState.save();
+    login(_formData['email'], _formData['password']);
     Navigator.pushReplacementNamed(context, '/home');
   }
 
@@ -84,20 +101,15 @@ class _AuthPageState extends State<AuthPage> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/food.jpg'),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.5), BlendMode.dstATop),
-          ),
+          image: _buildBackgroundImage(),
         ),
         padding: EdgeInsets.all(10.0),
         child: Center(
-          child: Form(
-            key: _globalKey,
-            child: SingleChildScrollView(
-              child: Container(
-                width: targetWidth,
+          child: SingleChildScrollView(
+            child: Container(
+              width: targetWidth,
+              child: Form(
+                key: _formKey,
                 child: Column(
                   children: <Widget>[
                     _buildEmailTextField(),
@@ -106,11 +118,16 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                     _buildPasswordTextField(),
                     _buildAcceptSwitchTile(),
-                    RaisedButton(
-                      color: Theme.of(context).accentColor,
-                      textColor: Colors.white,
-                      child: Text('Login'),
-                      onPressed: _submitForm,
+                    ScopedModelDescendant<MainModel>(
+                      builder: (BuildContext context, Widget child,
+                          MainModel model) {
+                        return RaisedButton(
+                          color: Theme.of(context).accentColor,
+                          textColor: Colors.white,
+                          child: Text('Login'),
+                          onPressed: () => _submitForm(model.login),
+                        );
+                      },
                     )
                   ],
                 ),

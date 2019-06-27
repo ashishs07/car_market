@@ -73,7 +73,8 @@ class _ProductEditPageState extends State<ProductEditPage> {
     );
   }
 
-  void _submitForm(Function addProduct, Function updateProduct,
+  void _submitForm(
+      Function addProduct, Function updateProduct, Function setSelectedProduct,
       [int selectedIndex]) {
     if (!_globalKey.currentState.validate()) {
       return;
@@ -81,25 +82,22 @@ class _ProductEditPageState extends State<ProductEditPage> {
     _globalKey.currentState.save();
     if (selectedIndex == null) {
       addProduct(
-        ProductModel(
-          title: _formData['title'],
-          description: _formData['description'],
-          price: _formData['price'],
-          image: _formData['image'],
-        ),
+        _formData['title'],
+        _formData['description'],
+        _formData['image'],
+        _formData['price'],
       );
     } else {
       updateProduct(
-        ProductModel(
-          title: _formData['title'],
-          description: _formData['description'],
-          price: _formData['price'],
-          image: _formData['image'],
-        ),
+        _formData['title'],
+        _formData['description'],
+        _formData['price'],
+        _formData['image'],
       );
     }
 
-    Navigator.pushReplacementNamed(context, '/home');
+    Navigator.pushReplacementNamed(context, '/home')
+        .then((_) => setSelectedProduct(null));
   }
 
   Widget _buildSubmitButton() {
@@ -108,8 +106,8 @@ class _ProductEditPageState extends State<ProductEditPage> {
       return RaisedButton(
         color: Theme.of(context).accentColor,
         child: Text('Save'),
-        onPressed: () => _submitForm(
-            model.addProduct, model.updateProduct, model.selectedProductIndex),
+        onPressed: () => _submitForm(model.addProduct, model.updateProduct,
+            model.selectProduct, model.selectedProductIndex),
       );
     });
   }
@@ -138,17 +136,17 @@ class _ProductEditPageState extends State<ProductEditPage> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(
       builder: (BuildContext context, Widget child, MainModel model) {
-        final Widget _mainForm = _buildPageContent(
+        final Widget pageContent = _buildPageContent(
           context,
           model.selectedProduct,
         );
         return model.selectedProductIndex == null
-            ? _mainForm
+            ? pageContent
             : Scaffold(
                 appBar: AppBar(
                   title: Text('Edit Page'),
                 ),
-                body: _mainForm,
+                body: pageContent,
               );
       },
     );
