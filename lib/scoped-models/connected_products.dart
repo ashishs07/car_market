@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:scoped_model/scoped_model.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/usermodel.dart';
 import '../models/productmodel.dart';
@@ -10,16 +13,34 @@ mixin ConnectedProducts on Model {
 
   void addProduct(
       String title, String description, String image, double price) {
-    final ProductModel newProduct = ProductModel(
-      title: title,
-      description: description,
-      image: image,
-      price: price,
-      userEmail: _authenticatedUser.email,
-      userId: _authenticatedUser.id,
-    );
-    _products.add(newProduct);
-    notifyListeners();
+    final Map<String, dynamic> productData = {
+      'title': title,
+      'description': description,
+      'image':
+          'https://www.seriouseats.com/2018/04/20180410-milk-chocolates-vicky-wasik-1-1500x1125.jpg',
+      'price': price,
+      'userEmail': _authenticatedUser.email,
+      'userId': _authenticatedUser.id
+    };
+
+    http
+        .post('https://course-project-5555.firebaseio.com/products.json',
+            body: json.encode(productData))
+        .then((http.Response response) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+
+      final ProductModel newProduct = ProductModel(
+        id: responseData['name'],
+        title: title,
+        description: description,
+        image: image,
+        price: price,
+        userEmail: _authenticatedUser.email,
+        userId: _authenticatedUser.id,
+      );
+      _products.add(newProduct);
+      notifyListeners();
+    });
   }
 }
 
@@ -71,6 +92,31 @@ mixin ProductSModel on ConnectedProducts {
   void deleteProduct() {
     _products.removeAt(selectedProductIndex);
     notifyListeners();
+  }
+
+  void fetchProducts() {
+    http
+        .get('https://course-project-5555.firebaseio.com/products.json')
+        .then((http.Response response) {
+      final List<ProductModel> fetchedProductList = [];
+      final Map<String, dynamic> productListData = json.decode(response.body);
+
+      productListData.forEach((String productId, dynamic productData) {
+        final ProductModel product = ProductModel(
+          id: productId,
+          title: productData['title'],
+          description: productData['description'],
+          image: productData['image'],
+          price: productData['price'],
+          userEmail: productData['userEmail'],
+          userId: productData['userId'],
+        );
+
+        fetchedProductList.add(product);
+      });
+      _products = fetchedProductList;
+      notifyListeners();
+    });
   }
 
   void toggleProductFavouriteStatus() {

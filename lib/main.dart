@@ -22,8 +22,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    final MainModel model = MainModel();
     return ScopedModel<MainModel>(
-      model: MainModel(),
+      model: model,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -35,7 +36,7 @@ class _MyAppState extends State<MyApp> {
         ),
         routes: {
           '/': (BuildContext context) => AuthPage(),
-          '/home': (BuildContext context) => ProductsPage(),
+          '/home': (BuildContext context) => ProductsPage(model),
           '/admin': (BuildContext context) => ManagerAdmin(),
         },
         onGenerateRoute: (RouteSettings settings) {
