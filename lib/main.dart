@@ -17,7 +17,6 @@ class MyApp extends StatefulWidget {
     return _MyAppState();
   }
 }
-//This is to revalidate
 
 class _MyAppState extends State<MyApp> {
   @override

@@ -105,9 +105,10 @@ class _AuthPageState extends State<AuthPage> {
         ),
         padding: EdgeInsets.all(10.0),
         child: Center(
+          widthFactor: targetWidth,
           child: SingleChildScrollView(
             child: Container(
-              width: targetWidth,
+              //width: targetWidth,
               child: Form(
                 key: _formKey,
                 child: Column(

@@ -32,6 +32,7 @@ class ProductCard extends StatelessWidget {
               PriceTag(product.price.toString()),
             ],
           ),
+          Text(product.userEmail),
           SizedBox(
             height: 10.0,
           ),
