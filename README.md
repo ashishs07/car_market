@@ -44,4 +44,4 @@ Screenshots(As on 06/21/2019)-
 </div>
 
 ### Contact
-[Website](https://ashishs2205.github.io/Website/) which is under development.
+[Website](https://ashishs2205.github.io/Website/)
