@@ -96,6 +96,9 @@ class _AuthPageState extends State<AuthPage> {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double targetWidth = deviceWidth > 550 ? 500 : deviceWidth * 0.95;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+      ),
       appBar: AppBar(
         title: Text('Car Login'),
       ),
