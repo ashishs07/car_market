@@ -119,6 +119,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
         key: _globalKey,
         child: ListView(
           children: <Widget>[
+	    Text('Added Text'),
             _buildTitletextField(product),
             _buildDescriptiontextField(product),
             _buildPricetextField(product),
