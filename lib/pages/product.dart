@@ -18,8 +18,7 @@ class ProductPage extends StatelessWidget {
       appBar: AppBar(title: Text(products.title)),
       body: Column(
         children: <Widget>[
-          Image.network(products.image),
-          ProductTitle(products.title),
+          
           Text(
             products.description,
             style: TextStyle(fontStyle: FontStyle.italic),
