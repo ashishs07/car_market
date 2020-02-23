@@ -29,6 +29,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
         if (value.length <= 5) {
           return 'Title should be greater than 5 chars';
         }
+        return null;
       },
       initialValue: product == null ? '' : product.title,
       decoration: InputDecoration(labelText: 'Product Title'),
@@ -47,6 +48,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
         if (value.length <= 10) {
           return 'Description should be greater than 5 chars';
         }
+        return null;
       },
       initialValue: product == null ? '' : product.description,
       decoration: InputDecoration(labelText: 'Description'),
@@ -63,6 +65,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
         if (value.isEmpty) {
           return 'Enter Price';
         }
+        return null;
       },
       initialValue: product == null ? '' : product.price.toString(),
       decoration: InputDecoration(labelText: 'Price'),
@@ -119,7 +122,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
         key: _globalKey,
         child: ListView(
           children: <Widget>[
-	    Text('Added Text'),
+            Text('Added Text'),
             _buildTitletextField(product),
             _buildDescriptiontextField(product),
             _buildPricetextField(product),

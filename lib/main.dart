@@ -6,7 +6,6 @@ import './pages/products_admin.dart';
 import './pages/product.dart';
 import './pages/products.dart';
 import './widgets/products/products.dart';
-//import './models/productmodel.dart';
 import './scoped-models/main_smodel.dart';
 
 void main() => runApp(MyApp());

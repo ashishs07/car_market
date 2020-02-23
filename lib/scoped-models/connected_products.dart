@@ -78,6 +78,7 @@ mixin ProductSModel on ConnectedProducts {
   void updateProduct(
       String title, String description, String image, double price) {
     final ProductModel updatedProduct = ProductModel(
+      id: _products[selectedProductIndex].id,
       title: title,
       description: description,
       image: image,
@@ -123,6 +124,7 @@ mixin ProductSModel on ConnectedProducts {
     final bool isFavourite = selectedProduct.isFavourite;
     final bool newFavouriteStatus = !isFavourite;
     final ProductModel updatedProduct = ProductModel(
+      id: selectedProduct.id,
       title: selectedProduct.title,
       description: selectedProduct.description,
       price: selectedProduct.price,
