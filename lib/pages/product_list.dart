@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+/* import 'package:flutter/material.dart';
 
 import './product_edit.dart';
-import '../widgets/UI elements/colordividerline.dart';
-import '../scoped-models/main_smodel.dart';
+
 
 class ProductListPage extends StatelessWidget {
   Widget _buildEditButton(BuildContext context, int index, MainModel model) {
@@ -60,3 +58,4 @@ class ProductListPage extends StatelessWidget {
     });
   }
 }
+ */

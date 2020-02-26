@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:provider/provider.dart';
 
-import './pages/auth.dart';
-import './pages/products_admin.dart';
-import './pages/product.dart';
-import './pages/products.dart';
-import './widgets/products/products.dart';
-import './scoped-models/main_smodel.dart';
+import './providers/cars_provider.dart';
+import './providers/users_provider.dart';
+import './screens/home_screen.dart';
+import './screens/userListing_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,9 +18,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    final MainModel model = MainModel();
-    return ScopedModel<MainModel>(
-      model: model,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: CarsProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: UsersProvider(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -32,28 +36,10 @@ class _MyAppState extends State<MyApp> {
           buttonTheme: ButtonThemeData(buttonColor: Colors.teal),
           iconTheme: IconThemeData(color: Colors.teal),
         ),
+        home: HomeScreen(),
         routes: {
-          '/': (BuildContext context) => AuthPage(),
-          '/home': (BuildContext context) => ProductsPage(model),
-          '/admin': (BuildContext context) => ManagerAdmin(),
-        },
-        onGenerateRoute: (RouteSettings settings) {
-          final List<String> pathElements = settings.name.split('/');
-
-          if (pathElements[0] != '') {
-            return null;
-          }
-          if (pathElements[1] == 'product') {
-            final int index = int.parse(pathElements[2]);
-            return MaterialPageRoute<bool>(
-                builder: (BuildContext context) => ProductPage(index));
-          }
-          return null;
-        },
-        onUnknownRoute: (RouteSettings settings) {
-          return MaterialPageRoute(
-            builder: (BuildContext context) => Products(),
-          );
+          HomeScreen.routeName: (ctx) => HomeScreen(),
+          UserListingScreen.routeName: (ctx) => UserListingScreen(),
         },
       ),
     );

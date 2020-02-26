@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 
-class ProductModel {
-  final String id;
+class CarModel {
   final String title;
   final String description;
   final double price;
   final String image;
+  final Color color;
   final bool isFavourite;
   final String userEmail;
-  final String userId;
 
-  ProductModel({
-    @required this.id,
+  CarModel({
     @required this.title,
     @required this.description,
     @required this.price,
     @required this.image,
+    @required this.color,
     this.isFavourite = false,
     @required this.userEmail,
-    @required this.userId,
   });
 }

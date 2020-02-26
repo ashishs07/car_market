@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 
 import './product_edit.dart';
 import './product_list.dart';
@@ -59,3 +59,4 @@ class ManagerAdmin extends StatelessWidget {
     );
   }
 }
+ */

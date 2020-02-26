@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:provider/provider.dart';
 
-import '../scoped-models/main_smodel.dart';
+import '../providers/users_provider.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -11,12 +11,61 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  final Map<String, dynamic> _formData = {
-    'email': null,
-    'password': null,
-    'acceptTerms': false,
-  };
+  String email;
+  String password;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  void _submitForm() {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
+    Provider.of<UsersProvider>(context, listen: false).login(email, password);
+    Navigator.pushReplacementNamed(context, '/home');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+      ),
+      appBar: AppBar(
+        title: Text('Car Login'),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: _buildBackgroundImage(),
+        ),
+        padding: EdgeInsets.all(10.0),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    _buildEmailTextField(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    _buildPasswordTextField(),
+                    RaisedButton(
+                      color: Theme.of(context).accentColor,
+                      textColor: Colors.white,
+                      child: Text('Login'),
+                      onPressed: () => _submitForm(),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
   DecorationImage _buildBackgroundImage() {
     return DecorationImage(
@@ -44,7 +93,7 @@ class _AuthPageState extends State<AuthPage> {
         return null;
       },
       onSaved: (String value) {
-        _formData['email'] = value;
+        email = value;
       },
     );
   }
@@ -67,81 +116,8 @@ class _AuthPageState extends State<AuthPage> {
         return null;
       },
       onSaved: (String value) {
-        _formData['password'] = value;
+        password = value;
       },
-    );
-  }
-
-  Widget _buildAcceptSwitchTile() {
-    return SwitchListTile(
-      title: Text('Accept Terms'),
-      value: _formData['acceptTerms'],
-      onChanged: (bool value) {
-        setState(() {
-          _formData['acceptTerms'] = value;
-        });
-      },
-    );
-  }
-
-  void _submitForm(Function login) {
-    if (!_formKey.currentState.validate() || !_formData['acceptTerms']) {
-      return;
-    }
-    _formKey.currentState.save();
-    login(_formData['email'], _formData['password']);
-    Navigator.pushReplacementNamed(context, '/home');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final double deviceWidth = MediaQuery.of(context).size.width;
-    final double targetWidth = deviceWidth > 550 ? 500 : deviceWidth * 0.95;
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-      ),
-      appBar: AppBar(
-        title: Text('Car Login'),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: _buildBackgroundImage(),
-        ),
-        padding: EdgeInsets.all(10.0),
-        child: Center(
-          widthFactor: targetWidth,
-          child: SingleChildScrollView(
-            child: Container(
-              //width: targetWidth,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    _buildEmailTextField(),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    _buildPasswordTextField(),
-                    _buildAcceptSwitchTile(),
-                    ScopedModelDescendant<MainModel>(
-                      builder: (BuildContext context, Widget child,
-                          MainModel model) {
-                        return RaisedButton(
-                          color: Theme.of(context).accentColor,
-                          textColor: Colors.white,
-                          child: Text('Login'),
-                          onPressed: () => _submitForm(model.login),
-                        );
-                      },
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

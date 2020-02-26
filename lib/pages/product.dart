@@ -1,12 +1,4 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
-
-//import '../widgets/UI elements/product_title.dart';
-import '../widgets/UI elements/product_location.dart';
-import '../scoped-models/main_smodel.dart';
-import '../models/productmodel.dart';
+/* import 'package:flutter/material.dart';
 
 class ProductPage extends StatelessWidget {
   final int productIndex;
@@ -57,7 +49,7 @@ class ProductPage extends StatelessWidget {
   }
 }
 
-/* _showDialogBox(BuildContext context) {
+ _showDialogBox(BuildContext context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -80,4 +72,5 @@ class ProductPage extends StatelessWidget {
           );
         });
   }
-*/
+
+ */
